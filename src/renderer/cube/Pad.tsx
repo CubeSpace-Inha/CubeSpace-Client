@@ -5,15 +5,16 @@ import "./Pad.css";
 type Props = {
   leds?: PadLed[]; // 켜진 패드 LED
   frozen?: boolean; // 패드 세션 끊김: 큐브가 회색(판정 동결)
+  dim?: boolean; // hot 큐브 말고 나머지를 흐리게
   children?: ReactNode; // 큐브들
 };
 
 // 패드(200 × 133.3 mm, 3:2): 판 면 · LED 24 × 16 · 위에 올린 큐브. 폭은 감싸는 쪽을 가득 채운다.
-export function Pad({ leds = [], frozen, children }: Props) {
+export function Pad({ leds = [], frozen, dim, children }: Props) {
   return (
     <div className="padbox">
       <div className="padsurf" />
-      <div className={frozen ? "pad frozen" : "pad"}>
+      <div className={["pad", frozen && "frozen", dim && "dim"].filter(Boolean).join(" ")}>
         <div className="pad-leds" />
         <div className="pad-lit">
           {leds.map((l) => {

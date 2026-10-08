@@ -1,7 +1,7 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import "./Button.css";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = ComponentProps<"button"> & {
   variant?: "primary" | "sub" | "danger";
   size?: "md" | "sm";
   wide?: boolean;

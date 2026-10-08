@@ -7,6 +7,7 @@ import { Drawer } from "../components/Drawer";
 import { Icon } from "../components/Icon";
 import { IconButton } from "../components/IconButton";
 import { SectionTitle } from "../components/SectionTitle";
+import { PillTabs } from "../components/PillTabs";
 import { Spinner } from "../components/Spinner";
 import { Tabs } from "../components/Tabs";
 import { Toast } from "../components/Toast";
@@ -137,6 +138,17 @@ export function TemplatePage() {
                 options={["느슨", "보통", "꼼꼼"]}
                 value={seg}
                 onChange={setSeg}
+                label="강도"
+              />
+              <SectionTitle hint="위 3칸과 같은 값">PillTabs</SectionTitle>
+              <PillTabs
+                options={[
+                  ["0", "느슨"],
+                  ["1", "보통"],
+                  ["2", "꼼꼼"],
+                ]}
+                value={String(seg)}
+                onChange={(v) => setSeg(Number(v))}
                 label="강도"
               />
               <SectionTitle>Spinner</SectionTitle>

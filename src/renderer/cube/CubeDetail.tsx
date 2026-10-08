@@ -18,12 +18,13 @@ type Props = {
   button: CubeButton;
   onButton: (b: CubeButton) => void;
   children?: ReactNode; // 묶인 창 줄 오른쪽 버튼
+  picker?: ReactNode; // 묶인 창 줄 아래 고르기 목록
 };
 
 const BUTTONS: [CubeButton, string][] = [["toggle", "켜기·끄기"], ["pick", "다시 고르기"]];
 
 // 고른 큐브 하나의 설정: 머리 · 묶인 창 · 지난번 / 고정 프로그램 · 큐브 버튼 · 상태별 동작 표.
-export function CubeDetail({ cube: c, monitor, last, fix, programs, onFix, button, onButton, children }: Props) {
+export function CubeDetail({ cube: c, monitor, last, fix, programs, onFix, button, onButton, children, picker }: Props) {
   const on = c.state !== "out";
   const pick = button === "pick";
   // [상태, 이름, 한 번, 꾹]. 지금 상태 줄에 불이 들어온다.
@@ -57,6 +58,7 @@ export function CubeDetail({ cube: c, monitor, last, fix, programs, onFix, butto
           <span className="wa">{children}</span>
         </div>
       )}
+      {picker}
       <div className="ccs">
         <div className="opt">
           <span>

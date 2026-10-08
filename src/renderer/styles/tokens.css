@@ -10,6 +10,7 @@
   --ink: #15171c; --on-ink: #fff; --muted: #6b7280; --faint: #9aa1ad; --line: #e3e5ec;
   --edge: #c8cbd7; --hi: #fff; --shadow: rgba(38, 42, 64, .32); --inset: rgba(30, 34, 52, .14);
   --padbg: #1c1f25;
+  --desk: radial-gradient(120% 90% at 20% 0%, #dfe4ff 0%, #eef0fa 45%, #f4eef6 100%);
   --r1: inset 0 1px 0 var(--hi), 0 3px 0 var(--edge), 0 9px 14px -5px var(--shadow);
   --r1p: inset 0 1px 0 var(--hi), 0 1px 0 var(--edge), 0 3px 5px -2px var(--shadow);
   --rc: inset 0 1px 0 var(--hi), 0 7px 0 var(--edge), 0 26px 38px -14px var(--shadow);
@@ -22,6 +23,7 @@
     --ink: #eef0f5; --on-ink: #12151a; --muted: #a0a7b4; --faint: #6e7683; --line: #303743;
     --edge: #0b0d11; --hi: rgba(255, 255, 255, .09); --shadow: rgba(0, 0, 0, .7); --inset: rgba(0, 0, 0, .55);
     --padbg: #0c0f14;
+    --desk: radial-gradient(120% 90% at 20% 0%, #343b5c 0%, #252a3f 50%, #2d2437 100%);
     --r1: inset 0 1px 0 var(--hi), 0 3px 0 var(--edge), 0 9px 14px -4px var(--shadow);
     --r1p: inset 0 1px 0 var(--hi), 0 1px 0 var(--edge), 0 3px 5px -2px var(--shadow);
     --rc: inset 0 1px 0 var(--hi), inset 0 0 0 1px rgba(255, 255, 255, .04), 0 7px 0 var(--edge), 0 28px 40px -12px var(--shadow);
@@ -35,6 +37,7 @@
   --ink: #eef0f5; --on-ink: #12151a; --muted: #a0a7b4; --faint: #6e7683; --line: #303743;
   --edge: #0b0d11; --hi: rgba(255, 255, 255, .09); --shadow: rgba(0, 0, 0, .7); --inset: rgba(0, 0, 0, .55);
   --padbg: #0c0f14;
+  --desk: radial-gradient(120% 90% at 20% 0%, #343b5c 0%, #252a3f 50%, #2d2437 100%);
   --r1: inset 0 1px 0 var(--hi), 0 3px 0 var(--edge), 0 9px 14px -4px var(--shadow);
   --r1p: inset 0 1px 0 var(--hi), 0 1px 0 var(--edge), 0 3px 5px -2px var(--shadow);
   --rc: inset 0 1px 0 var(--hi), inset 0 0 0 1px rgba(255, 255, 255, .04), 0 7px 0 var(--edge), 0 28px 40px -12px var(--shadow);

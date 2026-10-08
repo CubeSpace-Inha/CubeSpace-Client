@@ -1,7 +1,7 @@
 .spare-body { display: block; width: fit-content; margin-inline: auto; padding: 14px 30px; border-radius: 20px; background: linear-gradient(160deg, color-mix(in srgb, var(--soft) 86%, #fff), var(--soft) 70%);
   box-shadow: inset 0 1.5px 0 var(--hi), inset 0 0 0 1.5px color-mix(in srgb, var(--edge) 35%, transparent), 0 12px 30px -10px var(--shadow); }
-/* 칸: 세로 3 × 가로 2. 폭 : 높이 = 큐브(윗면 + 옆면 21 %)가 딱 맞는 비율 */
-.spare-grid { display: grid; grid-template-columns: repeat(2, 64px); gap: 12px 52px; }
+/* 칸: 세로로 한 줄. 폭 : 높이 = 큐브(윗면 + 옆면 21 %)가 딱 맞는 비율 */
+.spare-grid { display: grid; grid-template-columns: 64px; gap: 8px; }
 .spare-cell { position: relative; aspect-ratio: 1 / 1.21; padding: 0; border-radius: 14px; background: var(--soft); box-shadow: inset 0 3px 6px var(--inset), inset 0 0 0 2px var(--edge); }
 .spare-cell .cube { position: absolute; left: 3px; top: 3px; width: calc(100% - 6px); aspect-ratio: 1; translate: none; container-type: inline-size; pointer-events: none; transition: transform .25s var(--ease-spring); }
 .spare-cell .cube-top { inset: 0 0 auto 0; aspect-ratio: 1; }
