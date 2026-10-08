@@ -29,7 +29,12 @@ pnpm dev                 # Electron 창 + 화면 즉시 반영(HMR)
 ```
 src/main/       Electron 메인 프로세스
 src/preload/    renderer에 노출할 API
-src/renderer/   React 화면 (template/ = 카탈로그)
+src/renderer/   React 화면
+  styles/       토큰(색 · 다크/라이트) · 글꼴 · 기본
+  layout/       AppShell · Rail(왼쪽 메뉴) · Board · Column
+  components/   Card · Button · Badge · Tabs · Dialog · Drawer · Toast …
+  hooks/        useTheme · useToast · useModalDialog
+  template/     /template 카탈로그
 test/           Vitest 테스트
 docs/specs/     설계 문서
 ```
