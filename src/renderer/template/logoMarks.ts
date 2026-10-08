@@ -117,7 +117,7 @@ const ledWords = () => {
   };
   const line = (w: string, col: string) =>
     [0, 1, 2, 3, 4].map((y) =>
-      [...w].map((ch) => F[ch][y].replaceAll("1", col)).join("."),
+      [...w].map((ch) => F[ch][y].replaceAll("0", ".").replaceAll("1", col)).join("."),
     );
   const pad = (rs: string[], n: number) =>
     rs.map(
