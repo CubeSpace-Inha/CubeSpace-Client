@@ -1,33 +1,24 @@
-import { Route, Routes, useNavigate } from "react-router";
-import { Button } from "./components/Button";
+import { Navigate, Route, Routes } from "react-router";
+import { AppLayout } from "./layout/AppLayout";
+import { NAV } from "./layout/nav";
+import { EmptyScreen } from "./screens/EmptyScreen";
+import { PairingScreen } from "./screens/PairingScreen";
 import { TemplatePage } from "./template/TemplatePage";
 
 export function App() {
-  const navigate = useNavigate();
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <h1>CUBE SPACE</h1>
-            {/* 디버그용: 템플릿 카탈로그로 가는 버튼. 배포 빌드에서는 빠진다. */}
-            {import.meta.env.DEV && (
-              <Button
-                size="sm"
-                style={{ position: "fixed", right: 16, bottom: 16 }}
-                onClick={() => navigate("/template")}
-              >
-                템플릿 보기
-              </Button>
-            )}
-          </>
-        }
-      />
+      <Route path="/" element={<PairingScreen />} />
+      <Route element={<AppLayout />}>
+        {NAV.map((n) => (
+          <Route key={n.path} path={n.path} element={<EmptyScreen title={n.label} />} />
+        ))}
+      </Route>
       {/* 개발자용 템플릿 카탈로그. 배포 빌드에서는 빠진다. */}
       {import.meta.env.DEV && (
         <Route path="/template" element={<TemplatePage />} />
       )}
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 }

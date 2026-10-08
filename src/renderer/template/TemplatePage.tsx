@@ -14,22 +14,13 @@ import { useToast } from "../hooks/useToast";
 import { AppShell } from "../layout/AppShell";
 import { Board } from "../layout/Board";
 import { Column } from "../layout/Column";
-import type { RailItem } from "../layout/Rail";
+import { NAV } from "../layout/nav";
 import { RailButton } from "../layout/RailButton";
 import { ControlCards } from "./ControlCards";
 import { CubeCards } from "./CubeCards";
 import { LogoCards } from "./LogoCards";
 import { WindowCards } from "./WindowCards";
 import "./TemplatePage.css";
-
-// 앱과 같은 주 메뉴(홈 · 창 · AI 모드 · 시뮬레이션 · 설정)
-const NAV: RailItem[] = [
-  { icon: "home", label: "홈" },
-  { icon: "window", label: "창" },
-  { icon: "sparkle", label: "AI 모드" },
-  { icon: "cube", label: "시뮬레이션" },
-  { icon: "gear", label: "설정" },
-];
 
 const COLORS = ["c1", "c2", "c3", "c4", "ok", "err"];
 const SURFACES = [
