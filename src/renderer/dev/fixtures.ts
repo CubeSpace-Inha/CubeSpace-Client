@@ -18,6 +18,8 @@ export const OK: Snapshot = {
       xy: [30, 67],
       window: "w1",
       icon: "code",
+      ai: "p3",
+      aiChoices: ["p3", "p4"],
     },
     {
       slot: 1,
@@ -31,6 +33,8 @@ export const OK: Snapshot = {
       xy: [170, 30],
       window: "w2",
       icon: "globe",
+      ai: "p2",
+      aiChoices: ["p2"],
     },
     {
       slot: 2,
@@ -44,6 +48,8 @@ export const OK: Snapshot = {
       xy: [170, 103],
       window: "w3",
       icon: "book",
+      ai: null,
+      aiChoices: [],
     },
     {
       slot: 3,
@@ -57,6 +63,8 @@ export const OK: Snapshot = {
       xy: null,
       window: null,
       icon: "star",
+      ai: null,
+      aiChoices: [],
     },
     {
       slot: 4,
@@ -71,6 +79,8 @@ export const OK: Snapshot = {
       xy: null,
       window: null,
       icon: "bolt",
+      ai: null,
+      aiChoices: [],
     },
     {
       slot: 5,
@@ -84,6 +94,8 @@ export const OK: Snapshot = {
       xy: null,
       window: null,
       icon: "smile",
+      ai: null,
+      aiChoices: [],
     },
   ],
   windows: [
@@ -142,6 +154,26 @@ export const OK: Snapshot = {
     { window: "w2", rect: [0.5, 0, 1, 0.5] },
     { window: "w3", rect: [0.5, 0.5, 1, 1] },
   ],
+  modes: [
+    {
+      id: "m1",
+      name: "코딩",
+      cubes: [
+        { xy: [80, 48], app: "VS Code" },
+        { xy: [104, 48], app: "Windows Terminal" },
+        { xy: [104, 69.3], app: "Notion" },
+      ],
+    },
+    {
+      id: "m2",
+      name: "리서치",
+      cubes: [
+        { xy: [84, 66.7], app: "Chrome" },
+        { xy: [110, 66.7], app: "Notion" },
+      ],
+    },
+  ],
+  activeMode: null,
   profiles: [
     {
       id: "p1",
@@ -155,6 +187,7 @@ export const OK: Snapshot = {
       kind: "agent",
       name: "Codex · 구현",
       provider: "Codex",
+      role: "implement",
       detail: "코드 구현 · 수정",
       icon: "code",
     },
@@ -163,6 +196,7 @@ export const OK: Snapshot = {
       kind: "agent",
       name: "Claude · 계획과 검토",
       provider: "Claude Code",
+      role: "plan",
       detail: "계획 작성 · 결과 검토",
       icon: "prompt",
     },
@@ -218,6 +252,20 @@ export const OK: Snapshot = {
       { slot: 4, button: "toggle", fix: null },
       { slot: 5, button: "toggle", fix: null },
     ],
+    rules: {
+      split2: "pos",
+      split3: "big",
+      split4: "grid",
+      lift: "min",
+      backSec: 1,
+      stayMm: 10,
+      gapMm: 10,
+      bootMode: true,
+      topSkip: true,
+      skipApps: [],
+      order: "recent",
+    },
+    favs: ["VS Code"],
   },
   monitor: { no: 1, count: 2 },
 };

@@ -49,7 +49,10 @@ export type Cube = {
   xy: [number, number] | null; // 패드 위 자리(mm). null = 패드 밖
   window: WindowId | null; // 창 모드에서 맡은 창
   icon: string; // 큐브 윗면 8 × 8 도안 키
-  // 미정: AI 모드 큐브가 무엇을 맡는지(프리셋은 일단 뺐다). 구성을 바꿔도 대화는 이어 간다.
+  // 미정(임시): AI 모드에서 맡은 구성(Profile id). 시안 그대로 하나만. 프리셋을 뺐으므로 팀이 정한다.
+  ai: string | null;
+  // 미정(임시, 팀 확인): AI 모드 전환 목록(Profile id). 큐브를 터치할 때마다 다음 것으로 바뀐다(시안 aiChoices).
+  aiChoices: string[];
 };
 
 // ---- 창
@@ -70,6 +73,7 @@ export type AppWindow = {
   title: string;
   owner: string | null; // 맡은 큐브 이름
   status: WindowStatus;
+  top?: boolean; // 항상 위
 };
 
 // 창 배치: rect = 조작 영역 정규화 [x0, y0, x1, y1]
@@ -91,7 +95,15 @@ export type Profile = {
   detail: string; // 경로 · 설명 · 지침 본문
   icon: string;
   provider?: string; // agent만: Codex, Claude Code …
+  role?: "implement" | "plan"; // agent만: 구현 · 계획과 검토(추천 배정 · 충돌 확인용)
 };
+
+// ---- 모드
+
+// 모드: 패드 위 큐브 모양 하나와 자리마다 열 프로그램. 큐브를 이 모양으로 놓으면 그 화면이 열린다(어느 큐브든).
+// 모양이 맞는지는 shared/modeFit.ts. 실행(창 열고 배치)은 main 배치 엔진이 한다.
+export type ModeCube = { xy: [number, number]; app: string }; // 패드 위 자리(mm)
+export type Mode = { id: string; name: string; cubes: ModeCube[] };
 
 // ---- 알림
 
@@ -108,7 +120,26 @@ export type CubeSettings = {
   fix: string | null; // 고정 프로그램(바로 열기). null = 없음
 };
 
-export type Settings = { cubes: CubeSettings[] };
+// 창 규칙(시안 설정 · 규칙). 프리셋은 뺐다.
+export type Rules = {
+  split2: "pos" | "half"; // 켜진 묶인 창 2개: 큐브 위치 따라 · 반반
+  split3: "big" | "col"; // 3개: 왼쪽 크게 · 세로 3칸
+  split4: "grid" | "col"; // 4개: 4칸 · 세로 4칸
+  lift: "min" | "close"; // 큐브를 내렸을 때 묶인 창
+  backSec: number; // 되돌리는 시간(초): 이 안에 제자리에 다시 놓으면 그대로
+  stayMm: number; // 제자리로 볼 거리
+  gapMm: number; // 모드: 붙어 있다고 볼 틈
+  bootMode: boolean; // PC 켤 때 모드 바로 실행
+  topSkip: boolean; // 항상 위 창은 묶지 않기
+  skipApps: string[]; // 묶지 않을 앱
+  order: "recent" | "fav"; // 고르는 창 순서
+};
+
+export type Settings = {
+  cubes: CubeSettings[];
+  rules: Rules;
+  favs: string[]; // 즐겨찾기 프로그램
+};
 
 // ---- 한 장
 
@@ -117,6 +148,8 @@ export type Snapshot = {
   cubes: Cube[];
   windows: AppWindow[];
   layout: Placement[];
+  modes: Mode[];
+  activeMode: string | null; // 지금 실행 중인 모드
   profiles: Profile[];
   settings: Settings;
   notices: Notice[];
