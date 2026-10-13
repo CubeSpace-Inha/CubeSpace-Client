@@ -4,21 +4,24 @@
 
 ## 목적
 
-`cube-space-ui/pad-home.html` 시안을 Electron 앱으로 옮기기 전에, 빈 프로젝트 뼈대를 세운다.
+CubeSpace 저장소의 시안 `docs/04-소프트웨어/시안/pad-home.html`을 Electron 앱으로 옮기기 전에, 빈 프로젝트 뼈대를 세운다.
 다음 단계는 템플릿(토큰 · 레이아웃 · 부품)과 개발자용 카탈로그 화면 `/template`이다.
 
 ## 결정
 
 | 항목          | 선택                                                                             | 이유                                                  |
 | ------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| 앱 틀         | Electron 44 + React 19 + TypeScript 6.0                                          | 시안 HTML/CSS를 그대로 옮길 수 있다                   |
+| 앱 틀         | Electron 44 + React 19 + TypeScript 6.0, Node 24                                 | 시안 HTML/CSS를 그대로 옮길 수 있다                   |
 | 빌드          | electron-vite 5 (vite 7)                                                         | main · preload · renderer를 한 설정으로, renderer HMR |
 | 라우팅        | react-router 8, `BrowserRouter`                                                  | `/` 앱, `/template` 카탈로그                          |
-| 검사 · 테스트 | ESLint 10 + typescript-eslint, `tsc --noEmit`, Vitest 5 + Testing Library(jsdom) | 기존 cube-space와 같은 도구                           |
-| 패키지 관리자 | pnpm                                                                             | 기존과 같다                                           |
+| 검사 · 테스트 | ESLint 10 + typescript-eslint, `tsc --noEmit`, Vitest 5 + Testing Library(jsdom) | `pnpm check` 하나로 lint · typecheck · test           |
+| 패키지 관리자 | pnpm                                                                             | 잠금 파일 하나(`pnpm-lock.yaml`)로 설치를 맞춘다      |
+| 판 고정       | 의존성은 정확한 판으로. Electron은 `^`·`~`를 쓰지 않는다                         | 모두 같은 판으로 빌드·시험한다                        |
 | 저장소        | 패키지 하나                                                                      | 모노레포는 나눌 이유가 생기면 그때                    |
 
-기존 `cube-space` 모노레포는 구조만 참고하고 코드는 가져오지 않는다. win32 창 제어와 HW 연결은 필요할 때 `src/main/` 아래에 옮기며 검증한다.
+설계 기준은 CubeSpace 저장소 `docs/`다(구성은 `04-소프트웨어/01-구성.md`). Windows 창 제어는 C# 저장소 CubeSpace-Program-Win32가 하고, 이 앱은 `src/main/win32/`에서 그 exe를 띄우고 명령을 주고받고 감시한다. 패드 USB는 `src/main/device/`, 서버(CubeSpace-Server) 연결은 `src/main/remote/`에 둔다.
+
+보안 골격(`webPreferences`, CSP, IPC 두 채널)은 처음부터 CubeSpace `docs/04-소프트웨어/08-동반-앱.md` 9절 규칙을 따른다.
 
 ## `/template`
 
@@ -30,14 +33,15 @@
 
 ```
 src/
-  main/       Electron 메인(창 생성). 나중에 win32/, device/
-  preload/    contextBridge 노출
+  main/       Electron 메인(창 생성). 나중에 win32/(창 어댑터 클라이언트), device/(패드 USB), remote/(서버 연결)
+  preload/    contextBridge 노출(invoke · onState 두 함수)
   shared/     main ↔ renderer 공용 타입(IPC 계약)
+  core/       순수 모듈(입출력·Electron 없음): gateway/ estimate/ cube-events/ engine/ cube-replay/
   renderer/
     index.html · main.tsx · App.tsx(라우터)
     styles/ layout/ components/ hooks/ model/ screens/
     template/  TemplatePage(카탈로그)
-test/
+test/         rules.test.ts(순수 모듈 규칙), vectors/(CubeSpace에서 복사한 공용 시험 벡터)
 docs/
 ```
 
